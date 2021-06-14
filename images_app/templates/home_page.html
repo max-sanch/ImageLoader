@@ -1,0 +1,18 @@
+{% extends 'base_templates.html' %}
+{% block title %}ImageLoader - Список изображений{% endblock %}
+
+{% load static %}
+{% block content %}
+    <div>
+        <h1>Список изображений</h1>
+        <div>
+            {% for image in object_list %}
+                <p><a href="{% url 'one_image' image.id %}">{{ image.filename }}</a></p>
+            {% empty %}
+                <p>Нет доступных изображений</p>
+            {% endfor %}
+        </div>
+        <br>
+        <a href="{% url 'add_image' %}">Добавить изображение</a>
+    </div>
+{% endblock %}

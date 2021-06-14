@@ -1,0 +1,17 @@
+{% extends 'base_templates.html' %}
+{% block title %}ImageLoader - Добавить изобрадение{% endblock %}
+
+{% load static %}
+{% block content %}
+    <div>
+        <a href="{% url 'home_page' %}">Назад к списку</a>
+        <h1>Новое изображение</h1>
+        <div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Отправить">
+            </form>
+        </div>
+    </div>
+{% endblock %}
