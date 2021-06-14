@@ -55,3 +55,23 @@ class ImageDetailForms(forms.Form):
     """Форма изменения размера изображения"""
     width = forms.IntegerField(label='Ширина', min_value=1, required=False)
     height = forms.IntegerField(label='Высота', min_value=1, required=False)
+
+    def __init__(self, image_id, *args, **kwargs):
+        super(ImageDetailForms, self).__init__(*args, **kwargs)
+        self.image_id = image_id
+
+    def clean(self):
+        width = self.data.get("width")
+        height = self.data.get("height")
+
+        if not width and not height:
+            raise ValidationError(
+                "Оба поля не должны бать пустые"
+            )
+
+    def save(self, commit=True):
+        image = utils.sizing_image(self.image_id, self.data.get("width"), self.data.get("height"))
+
+        if commit:
+            image.save()
+        return image

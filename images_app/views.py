@@ -38,3 +38,12 @@ class ImageDetailView(FormView):
 
     def get_success_url(self):
         return reverse_lazy('one_image', kwargs={'pk': self.kwargs.get('pk')})
+
+    def get_form_kwargs(self):
+        kwargs = super(ImageDetailView, self).get_form_kwargs()
+        kwargs['image_id'] = int(self.kwargs.get('pk'))
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

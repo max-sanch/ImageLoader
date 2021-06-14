@@ -18,6 +18,13 @@ class Image(models.Model):
 
 class ImageSize(models.Model):
     """Размер изображения указанный пользователем"""
-    image = models.OneToOneField(Image, on_delete=models.CASCADE)
+    image = models.OneToOneField(Image, db_tablespace=True, on_delete=models.CASCADE)
     width = models.IntegerField(verbose_name="Ширина изображения")
     height = models.IntegerField(verbose_name="Высота изображения")
+    file = models.ImageField(
+        verbose_name="Изображение с изменённым размером",
+        blank=True,
+        null=True,
+        upload_to='images_sized/',
+        max_length=512
+    )

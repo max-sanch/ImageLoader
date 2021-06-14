@@ -2,6 +2,7 @@
 {% block title %}ImageLoader - {{ image.filename }}{% endblock %}
 
 {% load static %}
+{% load image_handler %}
 {% block content %}
     <div>
         <a href="{% url 'home_page' %}">Назад к списку</a>
@@ -14,6 +15,7 @@
             </form>
         </div>
         <br>
-        <img src="{{ image.file.url }}" alt="Image">
+        {% get_image_url image.id as image_url %}
+        <img src="{{ image_url }}" alt="Image">
     </div>
 {% endblock %}
