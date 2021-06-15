@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  app:
+    build: .
+    command: gunicorn ImageLoader.wsgi:application --bind 0:8000
+    volumes:
+      - static:/usr/src/app/static
+      - media:/usr/src/app/media
+    expose:
+      - 8000
+    env_file:
+      - ./ImageLoader/.env
+    restart: always
+  nginx:
+    build: nginx/.
+    volumes:
+      - static:/usr/src/app/static
+      - media:/usr/src/app/media
+    ports:
+      - 8080:80
+    restart: always
+    depends_on:
+      - app
+
+volumes:
+  static:
+  media:

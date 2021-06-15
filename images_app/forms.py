@@ -11,7 +11,7 @@ class AddImageForms(forms.Form):
     file = forms.ImageField(label='Файл', required=False, max_length=512)
 
     def clean(self):
-        url = self.data.get("url")
+        url = self.cleaned_data.get("url")
         file = self.cleaned_data.get("file")
 
         if url and file:
